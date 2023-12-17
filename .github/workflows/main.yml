@@ -9,6 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Say Hello
-      run: echo "Hello, GitHub Actions!"
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create HTML File
+        run: echo '<!DOCTYPE html><html lang="en"><head><title>ESA 6</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><style>* {box-sizing: border-box;font-family: Arial, Helvetica, sans-serif;}body {margin: 0;font-family: Arial, Helvetica, sans-serif;}.topnav {overflow: hidden;background-color: rgb(182, 201, 152);}.topnav a {float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;}.content {background-color: #8ebe84;padding: 10px;height: auto;margin-bottom:20px;padding-left: 20px;}.footer {background-color: #e0dd80;padding: 10px;margin-top: 5px;}</style><div class="topnav"></div><div class="content"><h2><b>Ausarbeitung der ESA6</b></h2><br></div><div class="footer"><p>ESA 6 - Moderene Softwareentwicklung</p><p>Link zum <a href="https://github.com/fgegaj/GitHubActions">GitHub-Respository</a>.</p><p>Die Webseite wurde mithilfe von <a href="https://www.w3schools.com/w3css/default.asp">W3Schools</a> gestaltet</p></div></body></html>' > index.html
+
+      - name: Display HTML File
+        run: cat index.html
