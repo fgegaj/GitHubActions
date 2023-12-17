@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  ACTIONS_STEP_DEBUG: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,39 +12,9 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-      with:
-        ref: main 
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
 
     - name: Create HTML File
       run: echo '<!DOCTYPE html><html lang="en"><head><title>ESA 6</title></head><body><h1>Hello, GitHub Actions!</h1></body></html>' > ESA6.html
 
     - name: Display HTML File
       run: cat ESA6.html
-
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add ESA6.html
-        git status
-        git commit -m "Update ESA6.html"
-        git push origin main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Show Current Branch
-      run: git branch
-
-    - name: Checkout gh-pages Branch
-      run: git checkout -B gh-pages origin/gh-pages
-
-    - name: Merge Changes from main
-      run: git merge main --no-edit
-
-    - name: Push to gh-pages
-      run: git push origin gh-pages
