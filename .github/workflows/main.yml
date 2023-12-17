@@ -1,9 +1,10 @@
-name: Hello World
+name: Build and Deploy
 
 on:
   push:
     branches:
       - main
+      - gh-pages
 
 jobs:
   build:
