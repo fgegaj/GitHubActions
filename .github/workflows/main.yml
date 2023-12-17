@@ -1,4 +1,4 @@
-name: Hello World
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,15 +6,26 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Create HTML File
-      run: echo '<!DOCTYPE html><html lang="en"><head><title>ESA 6</title></head><body><h1>Hello, GitHub Actions!</h1></body></html>' > ESA6.html
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
 
-    - name: Display HTML File
-      run: cat ESA6.html
+    - name: Build
+      run: npm run build  # Dieser Schritt sollte den Build durchführen
+
+    - name: Deploy to GitHub Pages
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git checkout -b gh-pages
+        git add .
+        git commit -m "Deploy to GitHub Pages"
+        git push origin gh-pages --force
